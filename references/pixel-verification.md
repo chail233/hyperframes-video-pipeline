@@ -19,16 +19,9 @@ frame is static.
 
 ## The freeze harness
 
-```bash
-bash <SKILL_DIR>/scripts/shoot-freeze.sh \
-  --project projects/<proj> --id <frame-id> --prefix q03 --t 6.0 --t 8.0
-node <SKILL_DIR>/scripts/motion-diff.mjs \
-  projects/<proj>/snapshots/q03-t6.0.png projects/<proj>/snapshots/q03-t8.0.png
-```
-
-`build-freeze.mjs` lifts the frame out of its `<template>`, rewrites `assets/` refs one level
-up, inlines everything in `assets/vendor/` (GSAP first), registers any `*Plugin` global it
-finds, and appends:
+Invocation lives in `SKILL.md` Step 8. Under the hood: `build-freeze.mjs` lifts the frame out of
+its `<template>` (or unwraps a standalone document), rewrites `assets/` refs one level up, inlines
+everything in `assets/vendor/` (GSAP first), registers any `*Plugin` global it finds, and appends:
 
 ```js
 var tl = window.__timelines["<frame-id>"];
@@ -48,12 +41,6 @@ Notes that bite:
 
 ## Keep debug pages out of lint
 
-`hyperframes lint` walks every `.html` in the project **but skips dot-directories**. So agent
-scratch pages belong in `.verify/` or `.dev/`:
-
-```
-.verify/freeze-<id>.html    # regenerated, gitignored
-.dev/whatever-experiment.html
-```
-
-Putting them anywhere else makes lint fail on scaffolding that was never meant to ship.
+`hyperframes lint` walks every `.html` in the project **but skips dot-directories**, so agent
+scratch pages belong in `.verify/` (regenerated, gitignored) or `.dev/` — anywhere else makes lint
+fail on scaffolding that was never meant to ship.

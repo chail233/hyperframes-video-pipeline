@@ -46,18 +46,14 @@ entire reason to do this.
 6. **Keep the harness self-healing.** `.verify/`, thumbnails and snapshots are caches: gitignore
    them, and make the audit regenerate whatever it needs.
 
-## Small file, big frame budget
+## Frame budget, and why the generator pays for itself
 
-`hyperframes lint` warns `too_large` on generated frames that inline a lot of markup (one per
-lyric line helps, but a dense act can still exceed the budget). A persistent `too_large`
-*warning* on generated files is a reasonable trade when splitting the act would fight the
-generator — but keep it as a warning: the moment one of these turns into an **error**, the
-layout/contrast audits stop running (see `SKILL.md` Step 6).
+`hyperframes lint` warns `too_large` on generated frames that inline a lot of markup; a persistent
+*warning* is an acceptable trade when splitting the act would fight the generator (an **error**
+would silently disable the layout/contrast audits — see `SKILL.md` Step 6).
 
-## Why bother: the mechanism rule
-
-A generator makes the "every lyric line must be *enacted*" standard affordable. With 129 lines,
-hand-authoring collapses into text-on-screen; with `motifs.mjs` primitives, a line becomes a
-state change (a point cloud snapping to a lattice, a circle rolling flat into a line, a curve
-hitting a wall and freezing) in a handful of spec lines. Picture that *changes state* is what
-separates a video from a slideshow, and it is exactly what an editable spec makes repeatable.
+What the generator buys is the standard that makes the piece a video instead of a slideshow:
+**every lyric line enacted, not just displayed.** Hand-authoring 129 lines collapses into
+text-on-screen; with `motifs.mjs` primitives, a line becomes a state change (a point cloud
+snapping into a lattice, a circle rolling flat into a line, a curve hitting a wall and freezing)
+in a handful of spec lines.

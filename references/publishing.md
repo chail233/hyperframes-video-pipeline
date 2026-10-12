@@ -27,11 +27,8 @@ and never delete the *older* audio take silently — rename or document it as pr
   copy instead, or accept it in the repo only with the user's explicit yes.
 - **Music and lyrics you don't own.** The audio track, transcription-derived LRC, and cover
   artwork belong out of a public repo unless the user says otherwise. Ask once, in a single
-  question, listing each file — then record the decision *and the restore commands* in the
-  README so the project stays reproducible locally:
-  ```bash
-  ffmpeg -i assets/audio.mp3 -af apad -t 220 -c:a libmp3lame -q:a 0 assets/bgm.mp3
-  ```
+  question listing each file, then record the decision *and the restore commands* in the README
+  so the project stays reproducible locally (the padding recipe is in `music-driven-sync.md`).
 - **Third-party character art / reference images.** Keep the licence-visible chain working
   locally, exclude the files, and **credit the designer by name and source** wherever derived
   art ships. If a build script needs an excluded input, say so next to it.
@@ -43,16 +40,19 @@ prevents the next person from calling it a bug.
 ## 3. Line endings
 
 `core.autocrlf=true` on Windows commits CRLF into shell scripts, and a `*.sh` with `\r` fails
-on every Linux clone (it can even land in the *committed blob*). Add:
+on every Linux clone. Add (one pattern per line — `*.mjs *.js *.md text eol=lf` is a parse error
+git reports as "not a valid attribute name"):
 
 ```gitattributes
 * text=auto eol=lf
 *.sh text eol=lf
-*.mjs *.js *.json *.md text eol=lf
-*.png *.jpg *.mp3 *.mp4 *.gif binary
+*.mjs text eol=lf
+*.md text eol=lf
+*.png binary
+*.mp4 binary
 ```
 
-…then `git add --renormalize .` and check the blob, not the working file:
+…then `git add --renormalize .` and check the **blob**, not the working file:
 `git show HEAD:scripts/x.sh | grep -c $'\r'` must be `0`. Forward slashes in HTML/CSS/JS paths
 also keep the composition portable — renders read file bytes.
 

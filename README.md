@@ -39,10 +39,7 @@ delete, what not to publish, and how to leave the project runnable by someone el
 ## Install
 
 ```bash
-# via the skills CLI (adds it to your agent's skill directory)
-npx --yes skills@latest add chail233/hyperframes-video-pipeline
-
-# project-scoped (no -g), run from your project root
+# project-scoped (recommended — keeps it out of the global skill directory)
 npx --yes skills@latest add chail233/hyperframes-video-pipeline
 ```
 

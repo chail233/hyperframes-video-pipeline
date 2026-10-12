@@ -2,13 +2,9 @@
 
 Two valid sources — pick per sound, mix freely. All resolved files go in
 `projects/<proj>/assets/` and are referenced by relative path. **Every `<audio>` element MUST
-have a unique `id`** or the render comes out silent (see pipeline Step 5).
-
-```bash
-# FFmpeg must resolve on PATH. On Windows/winget it is often installed but NOT on PATH —
-# export its bin dir first, every session that synthesizes or renders audio:
-export PATH="$PATH:<FFMPEG_BIN>"   # the folder containing ffmpeg.exe + ffprobe.exe
-```
+have a unique `id`** or the render comes out silent (see pipeline Step 5). FFmpeg must resolve on
+`PATH` (`export PATH="$PATH:<FFMPEG_BIN>"` — on Windows/winget it is often installed but missing
+from PATH).
 
 ## Option A — shipped SFX (fastest, no synthesis)
 
